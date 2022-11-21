@@ -1,4 +1,4 @@
-import SplitPolygonMode, { drawStyles as splitPolygonDrawStyles } from "..";
+import SelectFeatureMode, { drawStyles as selectFeatureDrawStyles } from "..";
 import defaultDrawStyle from "https://unpkg.com/@mapbox/mapbox-gl-draw@1.3.0/src/lib/theme.js";
 
 import "./index.css";
@@ -7,9 +7,14 @@ let map;
 let draw;
 let drawBar;
 
-const splitPolygon = () => {
+const selectFeature = () => {
   try {
-    draw?.changeMode("split_polygon");
+    draw?.changeMode("select_feature", {
+      // selectHighlightColor: "blue",
+      onSelect(selectedFeatureID) {
+        alert(`Selected Feature ID: ${selectedFeatureID}`);
+      },
+    });
   } catch (err) {
     alert(err.message);
     console.error(err);
@@ -92,10 +97,11 @@ map = new mapboxgl.Map({
 
 draw = new MapboxDraw({
   modes: {
-    ...SplitPolygonMode(MapboxDraw.modes),
+    ...SelectFeatureMode(MapboxDraw.modes),
   },
-  styles: [...splitPolygonDrawStyles(defaultDrawStyle)],
+  styles: [...selectFeatureDrawStyles(defaultDrawStyle)],
   userProperties: true,
+  selectHighlightColor: "red",
 });
 
 window.draw = draw;
@@ -105,8 +111,8 @@ drawBar = new extendDrawBar({
   buttons: [
     {
       on: "click",
-      action: splitPolygon,
-      classes: ["split-icon"],
+      action: selectFeature,
+      classes: ["select-icon"],
     },
   ],
 });
@@ -114,42 +120,43 @@ drawBar = new extendDrawBar({
 map.once("load", () => {
   map.resize();
   map.addControl(drawBar, "top-right");
+
   draw.set({
     type: "FeatureCollection",
     features: [
       {
         type: "Feature",
         properties: {},
-        id: "example-id",
         geometry: {
           coordinates: [
             [
-              [
-                [52, 35],
-                [53, 35],
-                [53, 36],
-                [52, 36],
-                [52, 35],
-              ],
-            ],
-            [
-              [
-                [50, 35],
-                [51, 35],
-                [51, 36],
-                [50, 36],
-                [50, 35],
-              ],
-              [
-                [50.2, 35.2],
-                [50.8, 35.2],
-                [50.8, 35.8],
-                [50.2, 35.8],
-                [50.2, 35.2],
-              ],
+              [51.03172414839912, 35.920869678862005],
+              [51.03172414839912, 35.62049410212656],
+              [51.461567534481134, 35.62049410212656],
+              [51.461567534481134, 35.920869678862005],
+              [51.03172414839912, 35.920869678862005],
             ],
           ],
-          type: "MultiPolygon",
+          type: "Polygon",
+        },
+      },
+      {
+        type: "Feature",
+        properties: {},
+        geometry: {
+          coordinates: [
+            [51.6404618916944, 35.57806814108352],
+            [51.82929482430853, 35.860482623322696],
+          ],
+          type: "LineString",
+        },
+      },
+      {
+        type: "Feature",
+        properties: {},
+        geometry: {
+          coordinates: [51.40193608207707, 35.45267939803206],
+          type: "Point",
         },
       },
     ],

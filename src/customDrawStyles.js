@@ -1,30 +1,31 @@
-import { highlightPropertyName as _highlightPropertyName } from "./constants";
+import {
+  modeName,
+  highlightPropertyName as _highlightPropertyName,
+} from "./constants";
 
 const highlightPropertyName = `user_${_highlightPropertyName}`;
 
 const customDrawStyles = (defaultStyle) =>
   defaultStyle.concat([
     {
-      id: "polygon-fill-hover",
+      id: `${modeName}-fill`,
       type: "fill",
       filter: [
         "all",
-        // ["==", "active", "false"],
         ["==", "$type", "Polygon"],
-        ["==", "user_hover", "true"],
+        ["has", highlightPropertyName],
       ],
       paint: {
-        "fill-color": "#222",
-        // "fill-outline-color": ["get", highlightPropertyName],
+        "fill-color": ["get", highlightPropertyName],
+        "fill-outline-color": ["get", highlightPropertyName],
         "fill-opacity": 0.2,
       },
     },
     {
-      id: "splitpolygon-stroke-active",
+      id: `${modeName}-stroke`,
       type: "line",
       filter: [
         "all",
-        ["==", "active", "false"],
         ["==", "$type", "Polygon"],
         ["has", highlightPropertyName],
       ],
@@ -36,6 +37,33 @@ const customDrawStyles = (defaultStyle) =>
         "line-color": ["get", highlightPropertyName],
         "line-dasharray": [0.2, 2],
         "line-width": 2,
+      },
+    },
+    {
+      id: `${modeName}-line`,
+      type: "line",
+      filter: [
+        "all",
+        ["==", "$type", "LineString"],
+        ["has", highlightPropertyName],
+      ],
+      layout: {
+        "line-cap": "round",
+        "line-join": "round",
+      },
+      paint: {
+        "line-color": ["get", highlightPropertyName],
+        "line-dasharray": [0.2, 2],
+        "line-width": 2,
+      },
+    },
+    {
+      id: `${modeName}-point`,
+      type: "circle",
+      filter: ["all", ["==", "$type", "Point"], ["has", highlightPropertyName]],
+      paint: {
+        "circle-color": ["get", highlightPropertyName],
+        "circle-radius": 3,
       },
     },
   ]);

@@ -1,7 +1,7 @@
 {
   "name": "mapbox-gl-draw-select-mode",
   "version": "1.0.0",
-  "description": "A custom mode for MapboxGL Draw to split polygons",
+  "description": "A custom mode for MapboxGL Draw to select features with highlighting",
   "main": "dist/index.js",
   "module": "src/index.js",
   "scripts": {

@@ -10,7 +10,7 @@ export default {
     file: pkg.main,
     format: "umd",
     exports: "named",
-    name: "SplitPolygonMode",
+    name: "SelectFeatureMode",
     sourcemap: process.env.NODE_ENV !== "production",
   },
 };
