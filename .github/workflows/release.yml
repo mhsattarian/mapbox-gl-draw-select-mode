@@ -5,7 +5,7 @@ on:
       - main
 jobs:
   demo:
-    name: Release
+    name: Demo
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🛎️
@@ -14,7 +14,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 18
-      - name: Install and Build Demo 🔧
+      - name: Install Deps
+        run: npm install
+      - name: Build Demo 🔧
         working-directory: demo
         run: npx vite build --base "/mapbox-gl-draw-select-mode/"
       - name: Deploy 🚀
