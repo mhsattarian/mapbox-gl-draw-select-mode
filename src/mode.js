@@ -7,6 +7,7 @@ import { defaultOptions, highlightPropertyName } from "./constants";
 const select_mode = {};
 
 select_mode.onSetup = function (opt) {
+  console.log("select_mode.onSetup");
   const { selectHighlightColor, onSelect, onCancel } = opt;
   const state = {};
   state.hoveredFeatureID = null;
@@ -61,6 +62,7 @@ select_mode.onMouseMove = function (state, e) {
 };
 
 select_mode.onClick = function (state, e) {
+  console.log("select_mode.onClick");
   state.selectedFeatureID = state.hoveredFeatureID;
   this.onStop(state, e);
 };
@@ -71,28 +73,34 @@ select_mode.toDisplayFeatures = function (state, geojson, display) {
 
 select_mode.onKeyUp = function (state, e) {
   if (isEscapeKey(e)) {
-    this.changeMode(Constants.modes.SIMPLE_SELECT);
+    // this.changeMode(Constants.modes.SIMPLE_SELECT);
+    if (typeof state.onCancel === "function") setTimeout(state.onCancel, 0);
   }
 };
 
 select_mode.onStop = function (state) {
+  console.log(
+    "🚀 ~ file: mode.js ~ line 81 ~ select_mode.onStop ~ state",
+    state
+  );
+  console.log("select_mode.onStop");
   this.updateUIClasses({ mouse: Constants.cursors.NONE });
   doubleClickZoom.enable(this);
   this.activateUIButton();
 
   if (state.selectedFeatureID) {
     if (typeof state.onSelect === "function")
-      state.onSelect(state.selectedFeatureID);
+      setTimeout(state.onSelect.bind(null, state.selectedFeatureID), 0);
     else
       this.map.fire("draw.select_mode.select", {
         featureID: state.selectedFeatureID,
       });
 
     state.selectedFeatureID = null;
-    this.changeMode(Constants.modes.SIMPLE_SELECT, {}, { silent: true });
+    // this.changeMode(Constants.modes.SIMPLE_SELECT, {}, { silent: true });
   } else {
     /// Call `onCancel` if exists.
-    if (typeof state.onCancel === "function") state.onCancel();
+    if (typeof state.onCancel === "function") setTimeout(state.onCancel, 0);
   }
 
   if (state.hoveredFeatureID) {
@@ -103,6 +111,8 @@ select_mode.onStop = function (state) {
     );
     state.hoveredFeatureID = null;
   }
+
+  console.log("done");
 };
 
 export default select_mode;
