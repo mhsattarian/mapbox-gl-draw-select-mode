@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 18
       - name: Install Deps
-        run: npm install
+        run: npm ci
       - name: Build Demo 🔧
         working-directory: demo
         run: npx vite build --base "/mapbox-gl-draw-select-mode/"
