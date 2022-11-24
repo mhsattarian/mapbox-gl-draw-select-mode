@@ -71,7 +71,8 @@ select_mode.toDisplayFeatures = function (state, geojson, display) {
 
 select_mode.onKeyUp = function (state, e) {
   if (isEscapeKey(e)) {
-    this.changeMode(Constants.modes.SIMPLE_SELECT);
+    // this.changeMode(Constants.modes.SIMPLE_SELECT);
+    if (typeof state.onCancel === "function") setTimeout(state.onCancel, 0);
   }
 };
 
@@ -82,17 +83,17 @@ select_mode.onStop = function (state) {
 
   if (state.selectedFeatureID) {
     if (typeof state.onSelect === "function")
-      state.onSelect(state.selectedFeatureID);
+      setTimeout(state.onSelect.bind(null, state.selectedFeatureID), 0);
     else
       this.map.fire("draw.select_mode.select", {
         featureID: state.selectedFeatureID,
       });
 
     state.selectedFeatureID = null;
-    this.changeMode(Constants.modes.SIMPLE_SELECT, {}, { silent: true });
+    // this.changeMode(Constants.modes.SIMPLE_SELECT, {}, { silent: true });
   } else {
     /// Call `onCancel` if exists.
-    if (typeof state.onCancel === "function") state.onCancel();
+    if (typeof state.onCancel === "function") setTimeout(state.onCancel, 0);
   }
 
   if (state.hoveredFeatureID) {
