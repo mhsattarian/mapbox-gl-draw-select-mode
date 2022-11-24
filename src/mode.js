@@ -7,7 +7,6 @@ import { defaultOptions, highlightPropertyName } from "./constants";
 const select_mode = {};
 
 select_mode.onSetup = function (opt) {
-  console.log("select_mode.onSetup");
   const { selectHighlightColor, onSelect, onCancel } = opt;
   const state = {};
   state.hoveredFeatureID = null;
@@ -62,7 +61,6 @@ select_mode.onMouseMove = function (state, e) {
 };
 
 select_mode.onClick = function (state, e) {
-  console.log("select_mode.onClick");
   state.selectedFeatureID = state.hoveredFeatureID;
   this.onStop(state, e);
 };
@@ -79,11 +77,6 @@ select_mode.onKeyUp = function (state, e) {
 };
 
 select_mode.onStop = function (state) {
-  console.log(
-    "🚀 ~ file: mode.js ~ line 81 ~ select_mode.onStop ~ state",
-    state
-  );
-  console.log("select_mode.onStop");
   this.updateUIClasses({ mouse: Constants.cursors.NONE });
   doubleClickZoom.enable(this);
   this.activateUIButton();
@@ -111,8 +104,6 @@ select_mode.onStop = function (state) {
     );
     state.hoveredFeatureID = null;
   }
-
-  console.log("done");
 };
 
 export default select_mode;
