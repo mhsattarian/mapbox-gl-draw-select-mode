@@ -1,6 +1,4 @@
-import doubleClickZoom from "@mapbox/mapbox-gl-draw/src/lib/double_click_zoom";
-import * as Constants from "@mapbox/mapbox-gl-draw/src/constants";
-import { isEscapeKey } from "@mapbox/mapbox-gl-draw/src/lib/common_selectors";
+import { CommonSelectors, Constants, lib } from "@mapbox/mapbox-gl-draw";
 
 import { defaultOptions, highlightPropertyName } from "./constants";
 
@@ -70,7 +68,7 @@ select_mode.toDisplayFeatures = function (state, geojson, display) {
 };
 
 select_mode.onKeyUp = function (state, e) {
-  if (isEscapeKey(e)) {
+  if (CommonSelectors.isEscapeKey(e)) {
     // this.changeMode(Constants.modes.SIMPLE_SELECT);
     if (typeof state.onCancel === "function") setTimeout(state.onCancel, 0);
   }
@@ -78,7 +76,7 @@ select_mode.onKeyUp = function (state, e) {
 
 select_mode.onStop = function (state) {
   this.updateUIClasses({ mouse: Constants.cursors.NONE });
-  doubleClickZoom.enable(this);
+  lib.doubleClickZoom.enable(this);
   this.activateUIButton();
 
   if (state.selectedFeatureID) {
