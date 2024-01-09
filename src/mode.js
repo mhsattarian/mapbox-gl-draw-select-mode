@@ -1,4 +1,7 @@
-import { CommonSelectors, Constants, lib } from "@mapbox/mapbox-gl-draw";
+import MapboxDraw from "@mapbox/mapbox-gl-draw";
+
+const Constants = MapboxDraw.constants;
+const lib = MapboxDraw.lib;
 
 import { defaultOptions, highlightPropertyName } from "./constants";
 
