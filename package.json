@@ -1,6 +1,6 @@
 {
   "name": "mapbox-gl-draw-select-mode",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A custom mode for MapboxGL Draw to select features with highlighting",
   "main": "dist/index.js",
   "module": "src/index.js",
@@ -37,8 +37,8 @@
     "eslint": "8.26.0"
   },
   "peerDependencies": {
-    "@mapbox/mapbox-gl-draw": "1.4.2",
-    "mapbox-gl-draw-passing-mode": "^2.2.1"
+    "@mapbox/mapbox-gl-draw": "1.4.3",
+    "mapbox-gl-draw-passing-mode": "^2.2.2"
   },
   "dependencies": {
     "@turf/turf": "6.5.0"
