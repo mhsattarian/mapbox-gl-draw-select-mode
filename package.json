@@ -1,6 +1,6 @@
 {
   "name": "mapbox-gl-draw-select-mode",
-  "version": "1.0.3",
+  "version": "1.0.2",
   "description": "A custom mode for MapboxGL Draw to select features with highlighting",
   "main": "dist/index.js",
   "module": "src/index.js",
