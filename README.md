@@ -8,7 +8,7 @@ A custom mode for [MapboxGL-Draw](https://github.com/mapbox/mapbox-gl-draw) to s
 ## Install
 
 ```bash
-npm install mapbox-gl-draw-split-polygon-mode
+npm install mapbox-gl-draw-select-mode
 ```
 
 or use CDN:
